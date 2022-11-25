@@ -17,11 +17,11 @@ class CardAdapter extends TypeAdapter<Card> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return Card(
-      numbercard: fields[0] as Int,
-      datecard: fields[1] as Int,
-      cvccard: fields[2] as Int,
+      numbercard: fields[0] as String,
+      datecard: fields[1] as String,
+      cvccard: fields[2] as String,
       peoplecard: fields[3] as String,
-      dnipeople: fields[4] as Int,
+      dnipeople: fields[4] as String,
     );
   }
 

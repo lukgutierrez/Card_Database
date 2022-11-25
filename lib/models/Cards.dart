@@ -7,15 +7,15 @@ part 'Cards.g.dart';
 @HiveType(typeId: 1)
 class Card {
   @HiveField(0)
-  final Int numbercard;
+  final String numbercard;
   @HiveField(1)
-  final Int datecard;
+  final String datecard;
   @HiveField(2)
-  final Int cvccard;
+  final String cvccard;
   @HiveField(3)
   final String peoplecard;
   @HiveField(4)
-  final Int dnipeople;
+  final String dnipeople;
 
   Card({
     required this.numbercard,
