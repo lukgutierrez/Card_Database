@@ -6,17 +6,17 @@ part of 'Cards.dart';
 // TypeAdapterGenerator
 // **************************************************************************
 
-class CardAdapter extends TypeAdapter<Card> {
+class CardAdapter extends TypeAdapter<Carta> {
   @override
   final int typeId = 1;
 
   @override
-  Card read(BinaryReader reader) {
+  Carta read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return Card(
+    return Carta(
       numbercard: fields[0] as String,
       datecard: fields[1] as String,
       cvccard: fields[2] as String,
@@ -26,7 +26,7 @@ class CardAdapter extends TypeAdapter<Card> {
   }
 
   @override
-  void write(BinaryWriter writer, Card obj) {
+  void write(BinaryWriter writer, Carta obj) {
     writer
       ..writeByte(5)
       ..writeByte(0)

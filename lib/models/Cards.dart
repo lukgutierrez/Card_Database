@@ -5,7 +5,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 part 'Cards.g.dart';
 
 @HiveType(typeId: 1)
-class Card {
+class Carta {
   @HiveField(0)
   final String numbercard;
   @HiveField(1)
@@ -17,7 +17,7 @@ class Card {
   @HiveField(4)
   final String dnipeople;
 
-  Card({
+  const Carta({
     required this.numbercard,
     required this.datecard,
     required this.cvccard,

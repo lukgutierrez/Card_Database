@@ -1,4 +1,4 @@
-import 'package:card_database_aplication/models/Cards.dart' as card;
+import 'package:card_database_aplication/models/Cards.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
@@ -24,12 +24,14 @@ class _HomePageState extends State<HomePage> {
   }
 
   _addInfo() async {
-    Card newCard = card.Card(
-        numbercard: _numbercard.text,
-        datecard: _datecard.text,
-        cvccard: _cvccard.text,
-        peoplecard: _peoplecard.text,
-        dnipeople: _dnipeople.text) as Card;
+    
+    Carta newCard =  Carta(
+      numbercard: _numbercard.text, 
+      datecard: _datecard.text,
+      cvccard: _cvccard.text, 
+      peoplecard: _peoplecard.text, 
+      dnipeople: _dnipeople.text
+      );
     print("SALVADO");
 
     box.add(newCard);
@@ -41,7 +43,7 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         backgroundColor: Colors.black,
       ),
-      body: Column(
+      body: ListView(
         children: [
           TextField(
             controller: _numbercard,
