@@ -1,3 +1,4 @@
+import 'package:card_database_aplication/Pages/Card_Information.dart';
 import 'package:card_database_aplication/models/Cards.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
@@ -24,14 +25,12 @@ class _HomePageState extends State<HomePage> {
   }
 
   _addInfo() async {
-    
-    Carta newCard =  Carta(
-      numbercard: _numbercard.text, 
-      datecard: _datecard.text,
-      cvccard: _cvccard.text, 
-      peoplecard: _peoplecard.text, 
-      dnipeople: _dnipeople.text
-      );
+    Carta newCard = Carta(
+        numbercard: _numbercard.text,
+        datecard: _datecard.text,
+        cvccard: _cvccard.text,
+        peoplecard: _peoplecard.text,
+        dnipeople: _dnipeople.text);
     print("SALVADO");
 
     box.add(newCard);
@@ -62,7 +61,9 @@ class _HomePageState extends State<HomePage> {
           ),
           ElevatedButton(
               onPressed: () {
-                _addInfo();
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => CardInformation(),
+                ));
               },
               child: Text("NEXT TO"))
         ],

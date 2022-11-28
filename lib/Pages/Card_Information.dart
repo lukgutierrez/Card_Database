@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
+import 'package:hive_flutter/adapters.dart';
+
 class CardInformation extends StatefulWidget {
   CardInformation({Key? key}) : super(key: key);
 
@@ -13,15 +14,27 @@ class _CardInformationState extends State<CardInformation> {
   void initState() {
     carta = Hive.box('cards');
     super.initState();
-    
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.black,
-      ),
-      body: ListView.builder(itemBuilder: ),
-    );
+        appBar: AppBar(
+          backgroundColor: Colors.black,
+        ),
+        body: ValueListenableBuilder(
+            valueListenable: carta.listenable(),
+            builder: (context, box, wiget) {
+              return ListView.builder(
+                itemCount: box.length,
+                itemBuilder: (context, index) {
+                  var currentBox = box;
+                  var tarjeta = currentBox.get(index);
+                  return ListTile(
+                    title: Text(tarjeta.numbercard),
+                  );
+                },
+              );
+            }));
   }
 }
