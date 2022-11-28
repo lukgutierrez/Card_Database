@@ -24,18 +24,6 @@ class _HomePageState extends State<HomePage> {
     box = Hive.box('cards');
   }
 
-  _addInfo() async {
-    Carta newCard = Carta(
-        numbercard: numbercard.text,
-        datecard: datecard.text,
-        cvccard: cvccard.text,
-        peoplecard: peoplecard.text,
-        dnipeople: dnipeople.text);
-    print("SALVADO");
-
-    box.add(newCard);
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,17 +47,15 @@ class _HomePageState extends State<HomePage> {
           TextField(
             controller: dnipeople,
           ),
-          ElevatedButton(
-              onPressed: () {
-                _addInfo();
-              },
-              child: Text("Save INFOMATION")),
+          ElevatedButton(onPressed: () {}, child: Text("Save INFOMATION")),
           ElevatedButton(
               onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => CardInformation(
                     numbercard: numbercard.text,
                     peoplecard: peoplecard.text,
+                    cvccard: cvccard.text,
+                    dnipeople: dnipeople.text,
                   ),
                 ));
               },
