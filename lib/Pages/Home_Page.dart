@@ -11,11 +11,11 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  TextEditingController _numbercard = TextEditingController();
-  TextEditingController _datecard = TextEditingController();
-  TextEditingController _cvccard = TextEditingController();
-  TextEditingController _peoplecard = TextEditingController();
-  TextEditingController _dnipeople = TextEditingController();
+  TextEditingController numbercard = TextEditingController();
+  TextEditingController datecard = TextEditingController();
+  TextEditingController cvccard = TextEditingController();
+  TextEditingController peoplecard = TextEditingController();
+  TextEditingController dnipeople = TextEditingController();
 
   late final Box box;
   @override
@@ -26,11 +26,11 @@ class _HomePageState extends State<HomePage> {
 
   _addInfo() async {
     Carta newCard = Carta(
-        numbercard: _numbercard.text,
-        datecard: _datecard.text,
-        cvccard: _cvccard.text,
-        peoplecard: _peoplecard.text,
-        dnipeople: _dnipeople.text);
+        numbercard: numbercard.text,
+        datecard: datecard.text,
+        cvccard: cvccard.text,
+        peoplecard: peoplecard.text,
+        dnipeople: dnipeople.text);
     print("SALVADO");
 
     box.add(newCard);
@@ -45,24 +45,32 @@ class _HomePageState extends State<HomePage> {
       body: ListView(
         children: [
           TextField(
-            controller: _numbercard,
+            controller: numbercard,
           ),
           TextField(
-            controller: _peoplecard,
+            controller: peoplecard,
           ),
           TextField(
-            controller: _datecard,
+            controller: datecard,
           ),
           TextField(
-            controller: _cvccard,
+            controller: cvccard,
           ),
           TextField(
-            controller: _dnipeople,
+            controller: dnipeople,
           ),
           ElevatedButton(
               onPressed: () {
+                _addInfo();
+              },
+              child: Text("Save INFOMATION")),
+          ElevatedButton(
+              onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => CardInformation(),
+                  builder: (context) => CardInformation(
+                    numbercard: numbercard.text,
+                    peoplecard: peoplecard.text,
+                  ),
                 ));
               },
               child: Text("NEXT TO"))
