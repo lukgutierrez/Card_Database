@@ -6,13 +6,14 @@ class CardInformation extends StatefulWidget {
   final String numbercard;
   final String peoplecard;
   final String cvccard;
-
+  final String datecard;
   final String dnipeople;
 
   CardInformation(
       {required this.numbercard,
       required this.peoplecard,
       required this.cvccard,
+      required this.datecard,
       required this.dnipeople});
 
   @override
@@ -29,7 +30,19 @@ class _CardInformationState extends State<CardInformation> {
   }
 
   _delete(int index) {
-    carta.clear();
+    carta.deleteAt(index);
+  }
+
+  _addInfo(index) async {
+    Carta newCarta = Carta(
+        numbercard: widget.numbercard,
+        datecard: widget.datecard,
+        cvccard: widget.cvccard,
+        peoplecard: widget.peoplecard,
+        dnipeople: widget.dnipeople);
+
+    carta.add(newCarta);
+    print('Save Information!');
   }
 
   @override
@@ -40,9 +53,9 @@ class _CardInformationState extends State<CardInformation> {
         actions: [
           IconButton(
               onPressed: () async {
-                _delete(0);
+                _addInfo(0);
               },
-              icon: Icon(Icons.delete))
+              icon: Icon(Icons.save)),
         ],
       ),
       body: ValueListenableBuilder(
@@ -53,15 +66,41 @@ class _CardInformationState extends State<CardInformation> {
               itemBuilder: (context, index) {
                 var currentBox = box;
                 var tarjeta = currentBox.get(index);
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(tarjeta.numbercard),
-                    Text(tarjeta.peoplecard),
-                    Text(tarjeta.datecard),
-                    Text(tarjeta.cvccard),
-                    Text(tarjeta.dnipeople)
-                  ],
+                return Dismissible(
+                  key: UniqueKey(),
+                  onDismissed: (direction) {
+                    _delete(index);
+                  },
+                  child: Container(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Column(
+                              children: [
+                                Text(tarjeta.numbercard),
+                                Text(tarjeta.peoplecard),
+                                Text(tarjeta.datecard),
+                                Text(tarjeta.cvccard),
+                                Text(tarjeta.dnipeople),
+                                Divider(
+                                  height: 30,
+                                  color: Colors.yellow,
+                                ),
+                              ],
+                            ),
+                            ElevatedButton(
+                                onPressed: () {
+                                  _addInfo(index);
+                                },
+                                child: Text("Save"))
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
                 );
               },
             );

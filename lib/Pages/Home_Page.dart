@@ -61,9 +61,9 @@ class _HomePageState extends State<HomePage> {
           ),
           ElevatedButton(
               onPressed: () {
-                _addInfo(0);
                 Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => CardInformation(
+                    datecard: datecard.text,
                     numbercard: numbercard.text,
                     peoplecard: peoplecard.text,
                     cvccard: cvccard.text,
