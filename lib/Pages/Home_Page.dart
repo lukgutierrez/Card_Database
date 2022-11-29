@@ -46,9 +46,6 @@ class _HomePageState extends State<HomePage> {
         children: [
           TextField(
             controller: numbercard,
-            onChanged: (index) async {
-              await _addInfo(index);
-            },
           ),
           TextField(
             controller: peoplecard,
@@ -62,9 +59,9 @@ class _HomePageState extends State<HomePage> {
           TextField(
             controller: dnipeople,
           ),
-          ElevatedButton(onPressed: () {}, child: Text("peole")),
           ElevatedButton(
               onPressed: () {
+                _addInfo(0);
                 Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => CardInformation(
                     numbercard: numbercard.text,

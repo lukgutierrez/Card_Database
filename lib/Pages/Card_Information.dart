@@ -54,6 +54,7 @@ class _CardInformationState extends State<CardInformation> {
                 var currentBox = box;
                 var tarjeta = currentBox.get(index);
                 return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(tarjeta.numbercard),
                     Text(tarjeta.peoplecard),
