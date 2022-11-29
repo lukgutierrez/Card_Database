@@ -28,45 +28,43 @@ class _CardInformationState extends State<CardInformation> {
     super.initState();
   }
 
+  _delete(int index) {
+    carta.clear();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.black,
-          actions: [
-            IconButton(
-                onPressed: () async {
-                  Carta newCard = Carta(
-                      numbercard: widget.numbercard,
-                      peoplecard: widget.peoplecard,
-                      cvccard: widget.cvccard,
-                      dnipeople: widget.dnipeople,
-                      datecard: widget.peoplecard);
-
-                  carta.add(newCard);
-                },
-                icon: Icon(Icons.save))
-          ],
-        ),
-        body: ListTile(
-          title: Text(widget.numbercard),
-          subtitle: Text(widget.peoplecard),
-        )
-
-        // ValueListenableBuilder(
-        //     valueListenable: carta.listenable(),
-        //     builder: (context, box, wiget) {
-        //       return ListView.builder(
-        //         itemCount: box.length,
-        //         itemBuilder: (context, index) {
-        //           var currentBox = box;
-        //           var tarjeta = currentBox.get(index);
-        //           return ListTile(
-        //             title: Text(tarjeta.numbercar),
-        //           );
-        //         },
-        //       );
-        //     }),
-        );
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+        actions: [
+          IconButton(
+              onPressed: () async {
+                _delete(0);
+              },
+              icon: Icon(Icons.delete))
+        ],
+      ),
+      body: ValueListenableBuilder(
+          valueListenable: carta.listenable(),
+          builder: (context, box, wiget) {
+            return ListView.builder(
+              itemCount: box.length,
+              itemBuilder: (context, index) {
+                var currentBox = box;
+                var tarjeta = currentBox.get(index);
+                return Column(
+                  children: [
+                    Text(tarjeta.numbercard),
+                    Text(tarjeta.peoplecard),
+                    Text(tarjeta.datecard),
+                    Text(tarjeta.cvccard),
+                    Text(tarjeta.dnipeople)
+                  ],
+                );
+              },
+            );
+          }),
+    );
   }
 }
