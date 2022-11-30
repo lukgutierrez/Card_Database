@@ -79,3 +79,4 @@ class _HomePageState extends State<HomePage> {
 }
 //https://blog.logrocket.com/handling-local-data-persistence-flutter-hive/
 //https://github.com/sbis04/hive_demo/blob/main/lib/utils/add_person_form.dart
+//https://www.youtube.com/watch?v=pgBwnMhz5nE //LEARNING NULL SAFETY

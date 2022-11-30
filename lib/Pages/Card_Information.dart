@@ -80,7 +80,7 @@ class _CardInformationState extends State<CardInformation> {
                           children: [
                             Column(
                               children: [
-                                Text(tarjeta.numbercard),
+                                Text(tarjeta?.numbercard),
                                 Text(tarjeta.peoplecard),
                                 Text(tarjeta.datecard),
                                 Text(tarjeta.cvccard),
