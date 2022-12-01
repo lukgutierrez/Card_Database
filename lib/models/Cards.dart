@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:hive_flutter/hive_flutter.dart';
 
 part 'Cards.g.dart';
@@ -7,7 +5,7 @@ part 'Cards.g.dart';
 @HiveType(typeId: 1)
 class Carta {
   @HiveField(0)
-  final String? numbercard;
+  final String numbercard;
   @HiveField(1)
   final String datecard;
   @HiveField(2)

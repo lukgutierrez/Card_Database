@@ -1,4 +1,3 @@
-import 'package:card_database_aplication/models/Cards.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 
@@ -26,23 +25,12 @@ class _CardInformationState extends State<CardInformation> {
   @override
   void initState() {
     carta = Hive.box('cards');
+
     super.initState();
   }
 
   _delete(int index) {
     carta.deleteAt(index);
-  }
-
-  _addInfo(index) async {
-    Carta newCarta = Carta(
-        numbercard: widget.numbercard,
-        datecard: widget.datecard,
-        cvccard: widget.cvccard,
-        peoplecard: widget.peoplecard,
-        dnipeople: widget.dnipeople);
-
-    carta.add(newCarta);
-    print('Save Information!');
   }
 
   @override
@@ -51,11 +39,7 @@ class _CardInformationState extends State<CardInformation> {
       appBar: AppBar(
         backgroundColor: Colors.black,
         actions: [
-          IconButton(
-              onPressed: () async {
-                _addInfo(0);
-              },
-              icon: Icon(Icons.save)),
+          IconButton(onPressed: () async {}, icon: Icon(Icons.save)),
         ],
       ),
       body: ValueListenableBuilder(
@@ -66,6 +50,7 @@ class _CardInformationState extends State<CardInformation> {
               itemBuilder: (context, index) {
                 var currentBox = box;
                 var tarjeta = currentBox.get(index);
+
                 return Dismissible(
                   key: UniqueKey(),
                   onDismissed: (direction) {
@@ -80,11 +65,16 @@ class _CardInformationState extends State<CardInformation> {
                           children: [
                             Column(
                               children: [
-                                Text(tarjeta?.numbercard),
-                                Text(tarjeta.peoplecard),
-                                Text(tarjeta.datecard),
-                                Text(tarjeta.cvccard),
-                                Text(tarjeta.dnipeople),
+                                // Text(widget.datecard),
+                                // Text(widget.peoplecard),
+                                // Text(widget.numbercard),
+                                // Text(widget.cvccard),
+                                // Text(widget.dnipeople),
+                                Text(tarjeta.numbercard ?? "uh"),
+                                Text(tarjeta.datecard ?? "oho"),
+                                // Text(tarjeta.cvccard),
+                                // Text(tarjeta.peoplecard),
+                                // Text(tarjeta.dnipeople),
                                 Divider(
                                   height: 30,
                                   color: Colors.yellow,
@@ -92,10 +82,7 @@ class _CardInformationState extends State<CardInformation> {
                               ],
                             ),
                             ElevatedButton(
-                                onPressed: () {
-                                  _addInfo(index);
-                                },
-                                child: Text("Save"))
+                                onPressed: () {}, child: Text("Save"))
                           ],
                         ),
                       ],
@@ -108,3 +95,36 @@ class _CardInformationState extends State<CardInformation> {
     );
   }
 }
+
+// List(data) {
+//   return Dismissible(
+//     key: UniqueKey(),
+//     onDismissed: (direction) {},
+//     child: Container(
+//       child: Column(
+//         crossAxisAlignment: CrossAxisAlignment.start,
+//         children: [
+//           Row(
+//             mainAxisAlignment: MainAxisAlignment.spaceAround,
+//             children: [
+//               Column(
+//                 children: [
+//                   Text(data),
+//                   Text(data),
+//                   Text(data),
+//                   Text(data),
+//                   Text(data),
+//                   Divider(
+//                     height: 30,
+//                     color: Colors.yellow,
+//                   ),
+//                 ],
+//               ),
+//               ElevatedButton(onPressed: () {}, child: Text("Save"))
+//             ],
+//           ),
+//         ],
+//       ),
+//     ),
+//   );
+// }
