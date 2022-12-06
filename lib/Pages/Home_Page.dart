@@ -11,7 +11,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  TextEditingController numbercard = TextEditingController();
+  late final TextEditingController numbercard = TextEditingController();
   TextEditingController datecard = TextEditingController();
   TextEditingController cvccard = TextEditingController();
   TextEditingController peoplecard = TextEditingController();
