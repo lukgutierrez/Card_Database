@@ -1,83 +1,94 @@
-import 'package:card_database_aplication/Pages/Card_Information.dart';
 import 'package:card_database_aplication/models/Cards.dart';
+import 'package:card_database_aplication/models/hive_data.dart';
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  HomePage({Key? key}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  late final TextEditingController numbercard = TextEditingController();
-  TextEditingController datecard = TextEditingController();
-  TextEditingController cvccard = TextEditingController();
-  TextEditingController peoplecard = TextEditingController();
-  TextEditingController dnipeople = TextEditingController();
+  TextEditingController numbercard = TextEditingController(text: "");
+  TextEditingController datacard = TextEditingController(text: "");
+  TextEditingController cvccard = TextEditingController(text: "");
+  TextEditingController namepeople = TextEditingController(text: "");
+  TextEditingController dnipeople = TextEditingController(text: "");
+  final HiveData hiveData = const HiveData();
+  List<Carta> cartadata = [];
 
-  late final Box box;
   @override
   void initState() {
+    getData();
     super.initState();
-    box = Hive.box('cards');
   }
 
-  _addInfo(index) async {
-    Carta newCarta = Carta(
-        numbercard: numbercard.text,
-        datecard: datecard.text,
-        cvccard: cvccard.text,
-        peoplecard: peoplecard.text,
-        dnipeople: dnipeople.text);
+  Future<void> getData() async {
+    cartadata = await hiveData.contact;
 
-    box.add(newCarta);
-    print('Save Information!');
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.black,
-      ),
-      body: ListView(
-        children: [
-          TextField(
-            controller: numbercard,
-          ),
-          TextField(
-            controller: peoplecard,
-          ),
-          TextField(
-            controller: datecard,
-          ),
-          TextField(
-            controller: cvccard,
-          ),
-          TextField(
-            controller: dnipeople,
-          ),
-          ElevatedButton(
-              onPressed: () {
-                _addInfo(0);
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => CardInformation(
-                    datecard: datecard.text,
-                    numbercard: numbercard.text,
-                    peoplecard: peoplecard.text,
-                    cvccard: cvccard.text,
-                    dnipeople: dnipeople.text,
+        appBar: AppBar(),
+        body: ListView.builder(
+          itemCount: cartadata.length,
+          itemBuilder: (context, index) {
+            return Card(
+              child: Column(
+                children: [
+                  Text(cartadata[index].peoplecard),
+                  Text(cartadata[index].numbercard),
+                  Text(cartadata[index].dnipeople),
+                  Text(cartadata[index].datecard),
+                  Text(cartadata[index].cvccard)
+                ],
+              ),
+            );
+          },
+        ),
+        floatingActionButton: FloatingActionButton(onPressed: () {
+          showModalBottomSheet(
+            context: context,
+            builder: (context) {
+              return Column(
+                children: [
+                  TextField(
+                    controller: numbercard,
                   ),
-                ));
-              },
-              child: Text("NEXT TO"))
-        ],
-      ),
-    );
+                  TextField(
+                    controller: namepeople,
+                  ),
+                  TextField(
+                    controller: datacard,
+                  ),
+                  TextField(
+                    controller: cvccard,
+                  ),
+                  TextField(
+                    controller: dnipeople,
+                  ),
+                  ElevatedButton(
+                      onPressed: () async {
+                        print("SAVE INFORMATIONDATE");
+                        await hiveData.saveDataMoney(Carta(
+                            numbercard: numbercard.text,
+                            datecard: datacard.text,
+                            cvccard: cvccard.text,
+                            peoplecard: namepeople.text,
+                            dnipeople: dnipeople.text));
+                        await getData();
+                      },
+                      child: Container(
+                        child: Text("INFORMATION"),
+                      ))
+                ],
+              );
+            },
+          );
+        }));
   }
 }
-//https://blog.logrocket.com/handling-local-data-persistence-flutter-hive/
-//https://github.com/sbis04/hive_demo/blob/main/lib/utils/add_person_form.dart
-//https://www.youtube.com/watch?v=pgBwnMhz5nE //LEARNING NULL SAFETY
