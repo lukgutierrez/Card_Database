@@ -38,13 +38,24 @@ class _HomePageState extends State<HomePage> {
           itemCount: cartadata.length,
           itemBuilder: (context, index) {
             return Card(
-              child: Column(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Text(cartadata[index].peoplecard),
-                  Text(cartadata[index].numbercard),
-                  Text(cartadata[index].dnipeople),
-                  Text(cartadata[index].datecard),
-                  Text(cartadata[index].cvccard)
+                  Column(
+                    children: [
+                      Text(cartadata[index].peoplecard),
+                      Text(cartadata[index].numbercard),
+                      Text(cartadata[index].dnipeople),
+                      Text(cartadata[index].datecard),
+                      Text(cartadata[index].cvccard)
+                    ],
+                  ),
+                  ElevatedButton(
+                      onPressed: () async {
+                        await hiveData.deleteDataMoneyIndex(index);
+                        await getData();
+                      },
+                      child: Icon(Icons.delete))
                 ],
               ),
             );
