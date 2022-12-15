@@ -21,6 +21,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Material App',
+        theme: ThemeData.dark(useMaterial3: true),
         home: HomePage());
   }
 }

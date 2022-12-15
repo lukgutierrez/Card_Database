@@ -33,21 +33,31 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(
+          backgroundColor: Colors.blue,
+          title: Text("Hello LukGtz ;)",
+              style:
+                  TextStyle(color: Colors.black, fontWeight: FontWeight.w500)),
+        ),
         body: ListView.builder(
           itemCount: cartadata.length,
           itemBuilder: (context, index) {
             return Card(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20)),
+              margin: EdgeInsets.all(10),
+              elevation: 5,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(cartadata[index].peoplecard),
                       Text(cartadata[index].numbercard),
-                      Text(cartadata[index].dnipeople),
+                      Text(cartadata[index].peoplecard),
                       Text(cartadata[index].datecard),
-                      Text(cartadata[index].cvccard)
+                      Text(cartadata[index].cvccard),
+                      Text(cartadata[index].dnipeople)
                     ],
                   ),
                   ElevatedButton(
@@ -61,45 +71,52 @@ class _HomePageState extends State<HomePage> {
             );
           },
         ),
-        floatingActionButton: FloatingActionButton(onPressed: () {
-          showModalBottomSheet(
-            context: context,
-            builder: (context) {
-              return Column(
-                children: [
-                  TextField(
-                    controller: numbercard,
-                  ),
-                  TextField(
-                    controller: namepeople,
-                  ),
-                  TextField(
-                    controller: datacard,
-                  ),
-                  TextField(
-                    controller: cvccard,
-                  ),
-                  TextField(
-                    controller: dnipeople,
-                  ),
-                  ElevatedButton(
-                      onPressed: () async {
-                        print("SAVE INFORMATIONDATE");
-                        await hiveData.saveDataMoney(Carta(
-                            numbercard: numbercard.text,
-                            datecard: datacard.text,
-                            cvccard: cvccard.text,
-                            peoplecard: namepeople.text,
-                            dnipeople: dnipeople.text));
-                        await getData();
-                      },
-                      child: Container(
-                        child: Text("INFORMATION"),
-                      ))
-                ],
-              );
-            },
-          );
-        }));
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            showModalBottomSheet(
+              context: context,
+              builder: (context) {
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    TeXfiel(numbercard, "NumberCard:", TextInputType.number),
+                    TeXfiel(namepeople, "NamePeople:", TextInputType.text),
+                    TeXfiel(datacard, "DateCard:", TextInputType.number),
+                    TeXfiel(cvccard, "CVCCard:", TextInputType.number),
+                    TeXfiel(dnipeople, "Subscription:", TextInputType.text),
+                    ElevatedButton(
+                        onPressed: () async {
+                          await hiveData.saveDataMoney(Carta(
+                              numbercard: numbercard.text,
+                              datecard: datacard.text,
+                              cvccard: cvccard.text,
+                              peoplecard: namepeople.text,
+                              dnipeople: dnipeople.text));
+                          await getData();
+                        },
+                        child: Container(
+                          child: Text("SAVE INFORMATION"),
+                        ))
+                  ],
+                );
+              },
+            );
+          },
+          child: Icon(Icons.add_card),
+        ));
   }
+}
+
+TeXfiel(controller, name, date) {
+  return TextField(
+    keyboardType: date,
+    textCapitalization: TextCapitalization.characters,
+    controller: controller,
+    decoration: InputDecoration(
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
+        hintText: name,
+        hintStyle: TextStyle(fontWeight: FontWeight.w500, color: Colors.white)),
+  );
 }
